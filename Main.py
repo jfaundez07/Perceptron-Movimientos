@@ -2,7 +2,30 @@ import numpy as np
 
 import Movimientos as moves
 import GraficarMovimientos as gm
-import Perceptron as perceptron
+import Perceptron as modulo_perceptron
+
+def analisis_resultados(mi_perceptron: modulo_perceptron.Perceptron, iteraciones):
+    
+    resultado = zip(mi_perceptron.movimientos_identificados, mi_perceptron.movimientos_reales_efectuados)
+    contador = 1
+    aciertos = 0
+
+    print(f"Movimiento identificado - Movimiento real efectuado ")
+    for movimiento_identificado, movimiento_real_efectuado in resultado:
+        print(f"Iteracion numero {contador}: {movimiento_identificado} - {movimiento_real_efectuado}")
+        if movimiento_identificado == movimiento_real_efectuado:
+            aciertos += 1
+        contador += 1
+
+    total_movimientos_identificados = len(mi_perceptron.movimientos_identificados)
+
+    precision = aciertos / total_movimientos_identificados
+
+    print(f"\n-> Total de movimientos identificados: {total_movimientos_identificados}")
+    print(f"-> Pruebas por movimiento: {iteraciones}")
+    print(f'-> Acertados: {aciertos}')
+    print(f"-> Porcentaje de aciertos: {precision * 100:.2f}%")
+
 
 def main():
 
@@ -14,7 +37,9 @@ def main():
 
     try: 
 
-        mi_perceptron = perceptron.Perceptron(neuronas_capa_entrada, neuronas_capa_oculta, neuronas_capa_salida)
+        # ------------------ GENERACION DE MOVIMIENTOS ------------------
+
+        mi_perceptron = modulo_perceptron.Perceptron(neuronas_capa_entrada, neuronas_capa_oculta, neuronas_capa_salida)
 
         movimiento_lineal = moves.generar_movimientos_lineales(cantidad_ejemplos)
         movimiento_circular = moves.generar_movimientos_circulares(cantidad_ejemplos)
@@ -27,6 +52,7 @@ def main():
             gm.plot_movimiento_circular(movimiento_circular)
             gm.plot_movimientos(movimiento_aleatorio)
         
+        # ------------------ IDENTIFICACION DE MOVIMIENTOS ------------------
 
         for movimiento in movimiento_lineal:
 
@@ -60,27 +86,7 @@ def main():
 
         # ------------------ ANALISIS FINAL ------------------
 
-        resultado = zip(mi_perceptron.movimientos_identificados, mi_perceptron.movimientos_reales_efectuados)
-
-        print(f"Movimiento identificado - Movimiento real efectuado ")
-        contador = 1
-        for movimiento_identificado, movimiento_real_efectuado in resultado:
-            print(f"Iteracion numero {contador}: {movimiento_identificado} - {movimiento_real_efectuado}")
-            contador += 1
-            
-
-        aciertos = 0
-        total_movimientos_identificados = len(mi_perceptron.movimientos_identificados)
-
-        for movimiento_identificado, movimiento_real_efectuado in zip(mi_perceptron.movimientos_identificados, mi_perceptron.movimientos_reales_efectuados):
-            if movimiento_identificado == movimiento_real_efectuado:
-                aciertos += 1
-
-        porcentaje_aciertos = aciertos / total_movimientos_identificados
-
-        print(f"Total de movimientos identificados: {total_movimientos_identificados}")
-        print(f"Pruebas por movimiento: {cantidad_ejemplos}")
-        print (f"Porcentaje de aciertos: {porcentaje_aciertos * 100:.2f}%")
+        analisis_resultados(mi_perceptron, cantidad_ejemplos)
 
     except Exception as e:
         print(e)
