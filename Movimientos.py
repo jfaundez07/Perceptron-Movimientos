@@ -30,36 +30,36 @@ def generar_movimientos_lineales(iteraciones) -> list:
     return movimientos_generados
 
 def generar_movimientos_circulares(iteraciones) -> list:
-    
-        movimientos_producidos = [] 
-    
-        for _ in range (iteraciones):
-    
-            # (cx, cy) -> Posicion del centro
-            cx = np.random.uniform(-5, 5)
-            cy = np.random.uniform(-5, 5)
-            
-            # radio -> Radio del circulo
-            radio = np.random.uniform(1, 3)
 
-            movimiento_temporal = []
+    movimientos_producidos = [] 
 
-            for angulo in range(10):
+    for _ in range (iteraciones):
 
-                '''
-                    2 * np.pi -> Angulo en radianes
-                    2 * np.pi * angulo / 10 -> divide el círculo en 10 partes iguales, generando puntos equidistantes a lo largo del perímetro del círculo.
-                    np.cos(2 * np.pi * angulo/10 ) y np.cos(2 * np.pi * angulo/10 ) -> genera coordenadas x,y en un circulo unitario.
-                    radio * np.cos y radio * np.sin -> escala el círculo unitario al radio deseado.
-                  
-                '''
-                x = cx + radio * np.cos(2 * np.pi * angulo/10 )
-                y = cy + radio * np.sin(2 * np.pi * angulo/10 )
-                movimiento_temporal.append([x, y])
+        # (cx, cy) -> Posicion del centro
+        cx = np.random.uniform(-5, 5)
+        cy = np.random.uniform(-5, 5)
+        
+        # radio -> Radio del circulo
+        radio = np.random.uniform(1, 3)
 
-            movimientos_producidos.append(movimiento_temporal)
+        movimiento_temporal = []
 
-        return movimientos_producidos
+        for angulo in range(10):
+
+            '''
+                2 * np.pi -> Angulo en radianes
+                2 * np.pi * angulo / 10 -> divide el círculo en 10 partes iguales, generando puntos equidistantes a lo largo del perímetro del círculo.
+                np.cos(2 * np.pi * angulo/10 ) y np.cos(2 * np.pi * angulo/10 ) -> genera coordenadas x,y en un circulo unitario.
+                radio * np.cos y radio * np.sin -> escala el círculo unitario al radio deseado.
+                
+            '''
+            x = cx + radio * np.cos(2 * np.pi * angulo/10 )
+            y = cy + radio * np.sin(2 * np.pi * angulo/10 )
+            movimiento_temporal.append([x, y])
+
+        movimientos_producidos.append(movimiento_temporal)
+
+    return movimientos_producidos
 
 def generar_movimientos_aleatorios(iteraciones) -> list:
 
