@@ -10,7 +10,7 @@ def analisis_resultados(mi_perceptron: modulo_perceptron.Perceptron, iteraciones
     contador = 1
     aciertos = 0
 
-    print(f"Movimiento identificado - Movimiento real efectuado ")
+    print(f"\nMovimiento identificado - Movimiento real efectuado: ")
     for movimiento_identificado, movimiento_real_efectuado in resultado:
         print(f"Iteracion numero {contador}: {movimiento_identificado} - {movimiento_real_efectuado}")
         if movimiento_identificado == movimiento_real_efectuado:
@@ -41,11 +41,19 @@ def main():
 
         mi_perceptron = modulo_perceptron.Perceptron(neuronas_capa_entrada, neuronas_capa_oculta, neuronas_capa_salida)
 
+        print(f"\nPesos capa oculta:")
+        for linea in mi_perceptron.pesos_capa_oculta:
+            print(linea)
+
+        print(f"\nPesos capa salida:")
+        for linea in mi_perceptron.pesos_capa_salida:
+            print(linea)
+
         movimiento_lineal = moves.generar_movimientos_lineales(cantidad_ejemplos)
         movimiento_circular = moves.generar_movimientos_circulares(cantidad_ejemplos)
         movimiento_aleatorio = moves.generar_movimientos_aleatorios(cantidad_ejemplos)
         
-        mostrar = input("Desea mostrar los movimientos generados? (S/n): ")
+        mostrar = input("\nDesea mostrar los movimientos generados? (S/n): ")
         
         if mostrar == 'S' or mostrar == 's':
             gm.plot_movimientos(movimiento_lineal)
