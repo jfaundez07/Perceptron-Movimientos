@@ -30,7 +30,7 @@ def analisis_resultados(mi_perceptron: modulo_perceptron.Perceptron, iteraciones
 def main():
 
     neuronas_capa_entrada = 10
-    neuronas_capa_oculta = 10
+    neuronas_capa_oculta = 3
     neuronas_capa_salida = 3
 
     cantidad_ejemplos = 30
